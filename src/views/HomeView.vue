@@ -4,7 +4,7 @@
     <div class="img-box">
       <img
         class="logo"
-        src="/Users/jiapeizou/vue-test/src/assets/4688.png"
+        src="/Users/jiapeizou/vue-test/src/assets/logo.png"
         alt=""
       />
       <h1 class="text">人脸识别系统后台管理</h1>
@@ -89,7 +89,7 @@
                   >
                     <img
                       class="user-avatar"
-                      src="/Users/jiapeizou/vue-test/src/assets/11111.jpeg"
+                      src="/Users/jiapeizou/vue-test/src/assets/KmUdrQ_fw658.webp"
                       alt=""
                     />
                     <span>姓名：{{ item }}</span>
