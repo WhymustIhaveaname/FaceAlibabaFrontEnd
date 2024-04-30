@@ -4,7 +4,7 @@
     <div class="img-box">
       <img
         class="logo"
-        src="/Users/jiapeizou/vue-test/src/assets/logo.png"
+        src="@/assets/logo.png"
         alt=""
       />
       <h1 class="text">人脸识别系统后台管理</h1>
@@ -28,8 +28,8 @@
                 </span>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item>进1个月</el-dropdown-item>
-                    <el-dropdown-item>进半年</el-dropdown-item>
+                    <el-dropdown-item>近1个月</el-dropdown-item>
+                    <el-dropdown-item>近半年</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -89,7 +89,7 @@
                   >
                     <img
                       class="user-avatar"
-                      src="/Users/jiapeizou/vue-test/src/assets/KmUdrQ_fw658.webp"
+                      src="@/assets/KmUdrQ_fw658.webp"
                       alt=""
                     />
                     <span>姓名：{{ item }}</span>
@@ -314,7 +314,7 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("/Users/jiapeizou/vue-test/src/assets/img-dark.webp");
+  background-image: url("@/assets/img-dark.webp");
   background-size: cover;
   background-position: center;
   opacity: 0.8; /* 设置背景图的透明度 */
@@ -370,7 +370,7 @@ onMounted(() => {
   left: -50%;
   width: 240px;
   height: 30px;
-  background-image: url(/Users/jiapeizou/vue-test/src/assets/dataScreen-header-center-bg.png);
+  background-image: url("@/assets/dataScreen-header-center-bg.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -389,7 +389,7 @@ onMounted(() => {
   margin-bottom: 20px;
   border-radius: 20px;
   border: 1px solid rgba(1, 251, 251, 0.3);
-  background-image: url(/Users/jiapeizou/vue-test/src/assets/identification-person-through-facial-face-260nw-2294406649.webp);
+  background-image: url("@/assets/identification-person-through-facial-face-260nw-2294406649.webp");
   background-size: cover;
   background-position: top -300px;
   display: flex;
