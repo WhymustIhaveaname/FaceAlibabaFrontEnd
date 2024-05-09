@@ -12,6 +12,7 @@
     "echarts": "^5.5.0",
     "element-plus": "^2.7.1",
     "pinia": "^2.1.7",
+    "plotly.js-dist": "^2.32.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
