@@ -26,7 +26,7 @@
 
 <script setup>
 import http from "@/api/http"
-import Header from "@/components/Header.vue"
+import Header from "@/components/Heade.vue"
 import FaceRecognitionStats from "@/components/FaceRecognitionStats.vue"
 import FacesListVue from "@/components/FacesList.vue"
 import LiveVideoStream from "@/components/LiveVideoStream.vue"
