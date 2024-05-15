@@ -1,6 +1,7 @@
 <template>
     <el-row :gutter="40">
         <el-col :span="12">
+            <el-button plain @click="open">Click to open the Message Box</el-button>
             <div class="half">
                 <h2>ECharts</h2>
                 <div class="echart" ref="charts1"></div>
@@ -11,11 +12,29 @@
                 <h2>Ploty</h2>
                 <div class="echart" ref="charts2"></div>
             </div>
+
         </el-col>
     </el-row>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { ElMessage, ElMessageBox } from 'element-plus'
+import type { Action } from 'element-plus'
+
+const open = () => {
+  ElMessageBox.alert('This is a message', 'Title', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: 'OK',
+    callback: (action: Action) => {
+      ElMessage({
+        type: 'info',
+        message: `action: ${action}`,
+      })
+    },
+  })
+}
+
 import { ref, onMounted } from "vue";
 import * as echarts from "echarts";
 import Plotly from 'plotly.js-dist'
