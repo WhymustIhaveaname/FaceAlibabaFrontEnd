@@ -6,16 +6,16 @@
             class="el-dropdown-link"
             style="color: rgba(3, 228, 234, 255); font-size: 20px"
         >
-            {{timeRange}}数据展示
+            {{ timeRangeStr[timeRange] }}数据展示
             <el-icon class="el-icon--right">
             <arrow-down />
             </el-icon>
         </span>
         <template #dropdown>
             <el-dropdown-menu>
-            <el-dropdown-item command="近7天">近7天</el-dropdown-item>
-            <el-dropdown-item command="近1个月">近1个月</el-dropdown-item>
-            <el-dropdown-item command="近半年">近半年</el-dropdown-item>
+            <el-dropdown-item command="7">近 7 天</el-dropdown-item>
+            <el-dropdown-item command="30">近 1 个月</el-dropdown-item>
+            <el-dropdown-item command="182">近半年</el-dropdown-item>
             </el-dropdown-menu>
         </template>
         </el-dropdown>
@@ -42,39 +42,45 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import axios from 'axios'
 import * as echarts from "echarts";
 import { ArrowDown } from "@element-plus/icons-vue";
 
 
 const value1 = ref(true);
 const value2 = ref(true);
-const charts1 = ref();
-const charts2 = ref();
-const timeRange = ref('近7天')
+const timeRange = ref("7");
+const timeRangeStr = {"7":"近 7 天","30":"近 1 个月","182":"近半年"}
 
-const handleCommand = (command)=>{
+async function handleCommand(command){
   timeRange.value = command
-  // http.getTimeRangeData(command)
+  updateFaceCount(timeRange.value)
 }
 
-onMounted(() => {
-  // http.getTimeRangeData(timeRange.value)
-  if (charts1.value) {
-    const myChart1 = echarts.init(charts1.value);
+async function updateFaceCount(backdays){
+  try{
+    const res = await axios.get(`http://127.0.0.1:5000/facecount?backdays=${backdays}`)
+    if(res.data.success){
+      console.log(res.data)
+      chartsoption1.xAxis.data = res.data.xAxis
+      chartsoption1.series[0].data = res.data.series0
+      chartsoption1.series[1].data = res.data.series1
+      myChart1.setOption(chartsoption1);
+    }else{
+      console.log(`error in updateFaceCount ${backdays}`,res)
+    }
+  }catch(error){
+    console.log(`error in updateFaceCount ${backdays}`,error)
+  }
+}
 
-    window.addEventListener("resize", () => {
-      myChart1.resize();
-    });
-    myChart1.setOption({
+let chartsoption1 = {
       title: {
-        text: "Stacked Line",
+        text: "每日人脸识别总人数",
         left: "center",
         textStyle: { color: "rgba(245,240,236,0.8)" },
       },
       tooltip: { trigger: "axis" },
-      legend: {
-        data: ["Email", "Union Ads", "Video Ads", "Direct", "Search Engine"],
-      },
       grid: {
         left: "3%",
         right: "4%",
@@ -84,23 +90,16 @@ onMounted(() => {
       xAxis: {
         type: "category",
         boundaryGap: false,
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        axisLabel: {
-          textStyle: { color: "#fff" },
-        },
+        data: ["D1", "D2", "D3", "D4", "D5", "D6"],
       },
       yAxis: {
         type: "value",
-        axisLabel: {
-          textStyle: { color: "#fff" },
-        },
       },
       series: [
         {
           name: "每日员工人脸识别总人数",
           type: "line",
-          stack: "Total",
-          data: [120, 132, 101, 134, 90, 230, 210],
+          data: [0, 0, 0, 0, 0, 0, 0],
           lineStyle: {
             color: "rgb(226,135,67)",
           },
@@ -111,8 +110,7 @@ onMounted(() => {
         {
           name: "每日非员工人脸识别总人数",
           type: "line",
-          stack: "Total",
-          data: [220, 182, 191, 234, 290, 330, 310],
+          data: [0, 0, 0, 0, 0, 0, 0],
           lineStyle: {
             color: "rgba(1,251,251,.8)",
           },
@@ -121,15 +119,9 @@ onMounted(() => {
           },
         },
       ],
-    });
-  }
-  if (charts2.value) {
-    const myChart2 = echarts.init(charts2.value);
+    }
 
-    window.addEventListener("resize", () => {
-      myChart2.resize();
-    });
-    myChart2.setOption({
+let chartsoption2 = {
       title: {
         text: "Stacked Area Chart",
         left: "center",
@@ -153,13 +145,11 @@ onMounted(() => {
           type: "category",
           boundaryGap: false,
           data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          axisLabel: { textStyle: { color: "#fff" } },
         },
       ],
       yAxis: [
         {
           type: "value",
-          axisLabel: { textStyle: { color: "#fff" } },
         },
       ],
       series: [
@@ -172,7 +162,29 @@ onMounted(() => {
           data: [120, 132, 101, 134, 90, 230, 210],
         },
       ],
+    }
+
+const charts1 = ref();
+const charts2 = ref();
+let myChart1 = null;
+let myChart2 = null;
+
+onMounted(() => {
+  if (charts1.value) {
+    myChart1 = echarts.init(charts1.value);
+    window.addEventListener("resize", () => {
+      myChart1.resize();
     });
+    // myChart1.setOption(chartsoption1);
+    updateFaceCount(timeRange.value)
+  }
+  if (charts2.value) {
+    myChart2 = echarts.init(charts2.value);
+
+    window.addEventListener("resize", () => {
+      myChart2.resize();
+    });
+    myChart2.setOption(chartsoption2);
   }
 });
 

@@ -50,7 +50,7 @@ import LiveVideoStream from "@/components/LiveVideoStream.vue"
 }
 /* 卡片下沉效果 */
 .card:hover {
-  transform: translateY(4px); /* 向下移动 */
+/*  transform: translateY(4px);*/ /* 向下移动 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 减少阴影以增强按压效果 */
 }
 .card {

@@ -9,7 +9,7 @@
                     >
                     <img
                         class="user-avatar"
-                        src="/Users/jiapeizou/vue-test/src/assets/KmUdrQ_fw658.webp"
+                        src="@/assets/KmUdrQ_fw658.webp"
                         alt=""
                     />
                 <span>姓名：{{ item }}</span>
